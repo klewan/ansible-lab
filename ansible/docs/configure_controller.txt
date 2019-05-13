@@ -1,0 +1,76 @@
+
+
+# uruchom środowisko
+
+cmd
+cd c:/lab
+
+vagrant up
+
+# zaloguj się na control node
+
+vagrant ssh control
+
+# wykonaj poniższe kroki
+
+# zalogowanie na root-a
+
+sudo -i
+
+# utworzenie użytkownika devops
+
+useradd devops
+echo 'devops' | passwd --stdin devops
+
+# zalogowanie na użytkownia devops
+
+su - devops
+
+# wygenrowanie klucza
+
+ssh-keygen -N '' -f ~/.ssh/id_rsa
+
+# wylogowanie
+
+exit
+
+# ponowne wylogowanie (do użytkownika vagrant)
+
+exit
+
+# sprawdzenie hostów w repozytorium
+
+cd /vagrant/ansible
+
+ansible all --list-hosts
+
+# utworzenie użytkownia devops na wszystkich hostach środowiska
+
+ansible all -m user -a "name=devops" --become
+
+# pobranie klucza użytkownia devops
+
+export SSHKEY=$(sudo cat /home/devops/.ssh/id_rsa.pub)
+echo $SSHKEY
+
+# skopiowanie klucza devops do authorized_keys na pozostałe hosty
+
+ansible all -m authorized_key -a "user=devops state=present key='$SSHKEY'" --become
+
+# dodanie devops do sudoers na wszystkich hostach
+
+ansible all -m lineinfile -a "dest=/etc/sudoers state=present line='devops ALL=(ALL) NOPASSWD: ALL'" --become
+
+# przełączenie na devops
+
+sudo su - devops
+
+# ustawienie i zaczytanie środowiska ansible
+
+echo demo > ~/.vault_pass.txt
+
+echo "export ANSIBLE_CONFIG=/vagrant/ansible/ansible.cfg" >> ~/.bash_profile
+source ~/.bash_profile
+
+
+

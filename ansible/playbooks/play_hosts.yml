@@ -1,0 +1,38 @@
+- name: Play 1
+  hosts: all
+
+  vars:
+    v1: 'a sample text'
+
+  tasks:
+
+  - name: display v1
+    debug:
+      msg: "v1 value: {{ v1|upper }} ; dlugosc stringa {{ v1|length }}"
+    tags:
+      - tag1
+
+  - name: test play_hosts
+    debug: var=play_hosts
+    run_once: true
+    tags:
+      - display_play_hosts
+
+  - name: test play_hosts 2
+    debug:
+      msg: "Ilosc elementow w play_hosts to {{ play_hosts|length }}"
+    run_once: true
+    tags:
+      - display_play_hosts
+
+  - name: Check a single host mode
+    assert:
+      that:
+        - "play_hosts|length == 1"
+      fail_msg: "This is a 'single host' mode, but more than one host seems to be in the current play"
+    run_once: true
+    tags:
+      - check_single_host_mode
+      - always
+
+

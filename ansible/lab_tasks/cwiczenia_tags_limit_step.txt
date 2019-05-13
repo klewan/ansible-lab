@@ -1,0 +1,24 @@
+*)
+popraw poniższe playbooki
+
+ansible-playbook ping.yml
+ansible-playbook multiple_plays.yml
+ansible-playbook first_tasks.yml 
+ansible-playbook deploy_apache.yml
+
+
+- dodaj tagi, nazwy dla plays i tasks
+
+*)
+zadania z tags, skip-tags
+
+*)
+dodaj always
+dodaj never
+
+*)
+run_once: true
+
+*)
+dry run (--check)
+

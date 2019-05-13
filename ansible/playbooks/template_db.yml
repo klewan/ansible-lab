@@ -1,0 +1,49 @@
+- name: Test
+  hosts: database
+  become: yes
+
+  vars:
+    
+    postgresql_clusters:
+      - name: CLUSTER1
+        port: 5432
+        users:
+          - name: user1
+            password: mypass1
+            state: present
+          - name: user2
+            password: mypass2
+            state: present
+          - name: user3
+            password: mypass3
+            state: absent
+        databases:
+          - name: DBAPP1
+            state: present
+          - name: DBAPP2
+            state: absent
+      - name: CLUSTER2
+        port: 5433
+        users:
+          - name: user1
+            password: mypass1
+            state: present
+        databases:
+          - name: DBLAB1
+            state: present
+
+  tasks:
+
+  - name: create sql files
+    template:
+      src: templates/create_sql_files.sql.j2
+      dest: "/tmp/create_sql_files_{{ item.name }}.sql"
+    with_items:
+      - '{{ postgresql_clusters }}'
+    loop_control:
+      label: "[Postgres cluster: {{ item.name }}; file: /tmp/create_sql_files_{{ item.name }}.sql]"
+    tags:
+      - createsqlfiles
+
+
+

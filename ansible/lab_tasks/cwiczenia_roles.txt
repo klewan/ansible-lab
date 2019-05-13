@@ -1,0 +1,29 @@
+
+
+z zachowaniem standardów (prefixy do zmiennych i tagów, opisy zmiennych w defaults i vars, ...):
+
+1. przerobić h6 na rolę (role2) i przygotować playbooka który wywołuje:
+   role1 i role2 (jako import_role)
+
+2. napisać:
+a) rolę 'audit_ansible', z jednym taskiem, który przy uruchomieniu zapisuje do pliku /tmp/audit_ansible.txt linię:
+   <timestamp> : <hostname> : <comment>
+   
+   opis:
+   <timestamp> - to może być shellowe `date` albo inny sposób (zmienna ansible'a ?? [facts]?)
+   <hostname> - zmienna ansiblowa
+   <comment> - to zmienna tej roli (audit_ansible_comment) - niech ma wartość domyślną 'default commment' - gdzie umieścicie definicję?
+
+   uwaga: ten task niech ma tag 'always' !
+
+b) rolę 'manage_http', która instaluje httpd oraz startuje serwis httpd
+   (opcjonalnie dla chętnych - wrzuca template httpd.conf.j2 i zmianę w template obsługuje za pomocą handlera)
+   rola manage_http ma niejawnie wołać rolę 'audit_ansible'
+
+c) rolę 'manage_motd', która tworzy plik /etc/motd (patrz: lekcja 5) z template'a
+   rola ta niejawnie woła role 'audit_ansible'
+
+d) playbook, z dwoma taskami, który wywołuje rolę 'manage_http' z parametrem 'audit_ansible_comment: http_change' i drugą rolę, 'manage_motd', z parametrem 'audit_ansible_comment: motd_change'
+ 
+ 
+ 

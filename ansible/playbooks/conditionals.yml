@@ -1,0 +1,33 @@
+- name: Test
+  hosts: all
+  become: yes
+
+  vars:
+    my_service: True
+    
+  tasks:
+
+  - name: Create the database admin
+    user:
+      name: db_admin
+    when: inventory_hostname in groups["database"]
+
+
+  - name: Create other admin
+    user:
+      name: other_admin
+    when: inventory_hostname in groups["loadbalancer"] and (ansible_distribution == "RedHat" or ansible_distribution == "Fedora")
+    
+    
+  - name: install mariadb-server if enough space on root
+    yum:
+      pkg: mariadb-server
+      state: latest
+    with_items: "{{ ansible_mounts }}"
+    when: inventory_hostname in groups["database"] and item.mount == "/" and item.size_available > 300000000
+
+  - name: Installs a package
+    yum:
+      pkg: httpd
+    when: inventory_hostname in groups["webserver"] and my_service
+      

@@ -1,0 +1,8 @@
+*)
+utwórz now¹ grupê
+
+*)
+utwórz grupê grup  - webdb
+
+uruchom modu³ ping na nowych grupach
+

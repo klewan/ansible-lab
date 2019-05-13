@@ -1,0 +1,11 @@
+
+
+*)
+Ustaw inne parametry dla zmiennej 'postgres_seclimits' dla grupy 'webservers', inne dla hosta 'db01'
+
+Uruchom ponownie ansible-playbook variable_precedence.yml
+
+
+*)
+dla hosta 'app01' ustaw dodatkowe parametry zmiennej 'postgres_seclimits'
+

@@ -1,0 +1,27 @@
+- name: Test
+  hosts: db01
+  become: yes
+
+  vars:
+    users_dict:
+      bjones:
+        first_name: Bob
+        last_name: Jones
+        home_dir: /users/bjones
+      acook:
+        first_name: Anne
+        last_name: Cook
+        home_dir: /users/acook
+
+  tasks:
+
+  - name: Dict - Print user details records
+    debug: msg="User {{ item.key }} name is {{ item.value.first_name }}; last name is {{ item.value.last_name }}"
+    with_dict: "{{ users_dict }}"
+
+  - name: Dict - create users
+    user:
+      name: "{{ item.key }}"
+      state: present
+    with_dict: "{{ users_dict }}"
+

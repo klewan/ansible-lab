@@ -1,0 +1,23 @@
+
+*)
+utwórz playbook-a fp1.yml z trzema play-ami:
+
+  a) play 1 (name - 'Preparation'):
+     tworzy plik /home/devops/fp1.txt z zawartością 'moje zadanie' na serwerze control 
+	 wskazówka: użyj 'localhost'; użyj modułu 'copy' do stworzenia treści pliku
+	 
+  b) play 2 (name - db deployment'):
+     działa na grupie 'database'
+	 tworzy katalog /tmp/fp1, mode: 0777, owner: vagrant
+     kopiuje fp1.txt z control do serwerów 'database' do /tmp/fp1/fp1_copy.txt, owner: devops, mode: 0664
+	      
+  c) play 3 (bez nazwy):
+     działa na 'webserver'
+	 instaluje nginx 
+	 nginx nie może być aktywowany (disabled), i nie ma być wystartowany
+	 
+	 Użyj nazw dla każdego taska
+
+	 
+
+	 

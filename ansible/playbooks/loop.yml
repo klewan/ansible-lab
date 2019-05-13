@@ -1,0 +1,25 @@
+- name: Test
+  hosts: localhost
+
+  vars:
+
+    list1:
+      - bob
+      - ann
+
+  tasks:
+
+  - name: test loop
+    debug:
+      msg: "item: {{ item }}"
+    with_items:
+      - one
+      - two
+      - [ three, four ]
+
+  - name: test loop 2
+    debug:
+      msg: "item: {{ item }}"
+    with_items:
+      - "{{ list1 }}"
+

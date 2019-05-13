@@ -1,0 +1,23 @@
+- name: Test
+  hosts: all
+  become: yes
+
+  vars:
+    postgresql_user: 'postgres'
+
+  tasks:
+
+  - name: add groups and users | postgresql-recommended security limits
+    lineinfile:
+      path: /etc/security/limits.d/99-postgresql-limits.conf
+      create: yes
+      state: present
+      regexp: '^{{ postgresql_user }}\s+{{ item.name }}\s+.*'
+      backup: no
+      line: '{{ postgresql_user }} {{ item.name }} {{ item.value }}'
+    loop_control:
+      label: "[Changing limit {{ item.name }} to {{ item.value }} for user {{ postgresql_user }}]"
+    with_items:
+      - '{{ postgres_seclimits }}'
+
+

@@ -1,0 +1,41 @@
+- name: Test
+  hosts: db01
+
+  tasks:
+
+  - name: Install the package
+    become: yes
+    yum:
+      name: httpd
+#      state: installed
+      state: absent
+    register: install_result
+    tags:
+      - zadanie
+
+  - debug: var=install_result
+    tags:
+      - zadanie
+
+  - name: output
+    debug:
+      msg: "Packgage uninstalled"
+    when: install_result.changed
+    tags:
+      - zadanie
+
+  - name: output
+    debug:
+      msg: "Packgage stage not changed"
+    when: not install_result.changed
+    tags:
+      - zadanie
+
+
+  - name: shell example
+    shell: |
+      echo Line1
+    register: _shell_result
+
+
+

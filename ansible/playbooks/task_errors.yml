@@ -1,0 +1,28 @@
+- name: Test
+  hosts: database
+  become: yes
+    
+  tasks:
+
+  - name: error tasks
+    shell: |
+      /bin/blah.sh    
+    ignore_errors: yes
+      
+  - name: next task - ping
+    ping:
+      
+#  - name: error tasks
+#    shell: |
+#      /bin/blah.sh    
+#    register: command_result
+#    failed_when: "'No such file or directory' in command_result.stderr"
+
+
+#  - debug: var=command_result  
+ 
+  - name: changed task
+    shell: |
+      echo hello
+    register: command2_result
+    changed_when: "'hello' in command2_result.stdout"

@@ -1,0 +1,22 @@
+---
+- name: Play 1
+  hosts: all
+  gather_facts: no
+
+  tasks:
+
+  - name: simple ping
+    ping:
+    
+
+- name: Play 2
+  hosts: all
+  gather_facts: no
+
+  tasks:
+
+  - name: another ping
+    ping:
+    
+
+    

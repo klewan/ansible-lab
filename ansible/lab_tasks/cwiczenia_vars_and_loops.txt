@@ -1,0 +1,34 @@
+
+zadanie:
+--------
+
+napisz playbook-a h4.yml, który działa na grupie 'webserver'
+
+
+*) wczytuje zmienne z pliku h4_vars.yml o takiej treści:
+
+users_list:
+  - username: bjones
+    first_name: bob
+    last_name: jones
+    home_dir: /users/bjones
+  - username: acook
+    first_name: anne
+    last_name: cook
+    home_dir: /users/acook
+
+*) tworzy użytkowników OSa z listy users_list w pętli (pojedynczy task) - moduł user
+
+*) dodaje do pliku /tmp/new_users.log informcje o wszystkich użytkownikach (użyj modułu lineinfile)
+   plik powinien być utworzony jeśli nie istnieje
+   plik powinien być backupowany jeśli treść się zmienia
+   format linii: "User: <login>; First Name: <in uppercase>; Last name: <lowercase>"
+   wszystko w pojedynczym tasku
+
+*) kolejny task: wyświetla zawartość pliku /tmp/new_users.log tak, by nie łączył linii, każda linia osobno
+
+*) task 'assert', który przerywa działanie playbook-a, jeśli output w/w pliku nie zawiera słowa 'ANNE' - wówczas niech wyświetli komentarz  "Something wrong"  
+
+
+
+

@@ -1,0 +1,25 @@
+---
+- name: Play 1
+  hosts: all
+  gather_facts: no
+
+  tasks:
+      
+  - name: first task - latest httpd version installed
+    yum:
+      name: httpd
+      state: latest    
+    
+  - name: second task - httpd enabled
+    systemd: 
+      name: httpd
+      enabled: true
+
+# ...
+
+  - name: last task
+    systemd: 
+      name: httpd 
+      enabled: true
+    
+    

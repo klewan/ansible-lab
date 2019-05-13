@@ -1,0 +1,42 @@
+- name: Test
+  hosts: localhost
+#
+  vars:
+    users:
+      bjones:
+        first_name: Bob
+        last_name: Jones
+        home_dir: /users/bjones
+      acook:
+        first_name: Anne
+        last_name: Cook
+        home_dir: /users/acook
+
+    v1: bjones
+
+  tasks:
+
+  - name: display users
+    debug: var=users
+    tags:
+      - display_users
+
+  - name: t1
+    debug: var=users.bjones.first_name
+    tags:
+      - t1
+
+  - name: t2
+    debug: var=users['bjones']['first_name']
+    tags:
+      - t1
+
+  - name: t3
+    debug: var=users[v1]['first_name']
+    tags:
+      - t1
+
+  - include_vars: vars_from_file.yml
+
+  - debug: var=var1_from_file
+

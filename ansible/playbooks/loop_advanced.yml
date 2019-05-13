@@ -1,0 +1,63 @@
+- name: Test
+  hosts: db01
+  become: yes
+
+  vars:
+
+    users_list:
+      - username: bjones
+        first_name: Bob
+        last_name: Jones
+        home_dir: /users/bjones
+        privs:
+          - select
+          - delete
+      - username: acook
+        first_name: Anne
+        last_name: Cook
+        home_dir: /users/acook
+        privs:
+          - select
+          - insert
+
+    alpha: [ 'a', 'b', 'c'  ]
+    numbers:  [ 1, 2, 3, 4 ]
+
+  tasks:
+
+  - name: with_nested example
+    debug:
+      msg: "name: {{ item[0] }} ; priv: {{ item[1] }}.*:ALL "
+    loop_control:
+      label: "[Debug line for {{ item[0] }} and {{ item[1] }}]"
+    with_nested:
+      - [ 'alice', 'bob' ]
+      - [ 'clientdb', 'employeedb', 'providerdb' ]
+    tags:
+      - tag_with_nested
+
+#    mysql_user:
+#      name: "{{ item[0] }}"
+#      priv: "{{ item[1] }}.*:ALL"
+#      append_privs: yes
+#      password: "foo"
+
+  - name: with_together example
+    debug:
+      msg: "{{ item.0 }} and {{ item.1 }}"
+    with_together:
+      - "{{ alpha }}"
+      - "{{ numbers }}"
+    tags:
+      - tag_with_together
+
+  - name: with_subelements example
+    debug:
+      msg: "user: {{ item.0.username }} ; Name: {{ item.0.first_name }} ; priv: {{ item.1 }}"
+    with_subelements:
+      - "{{ users_list }}"
+      - privs
+    tags:
+      - tag_with_subelements
+
+

@@ -1,0 +1,22 @@
+- name: Test
+  hosts: db01
+  become: yes
+
+  vars:
+
+    alpha: [ 'a', 'b', 'c', 'd' ]
+    numbers:  [ 1, 2, 3, 4 ]
+
+  tasks:
+
+  - name: with_together example
+    debug:
+      msg: "{{ item.0 }} and {{ item.1 }}"
+    with_together:
+      - "{{ alpha }}"
+      - "{{ numbers }}"
+    delegate_to: lb01
+    tags:
+      - tag_with_together
+
+

@@ -1,0 +1,12 @@
+
+*)
+ansible db01 -m setup
+
+ansible db01 -m setup -a 'filter=ansible_user*'
+ 
+
+*) custom facts
+
+ansible-playbook setup_facts.yml
+
+ansible webserver -m setup -a 'filter=ansible_local'

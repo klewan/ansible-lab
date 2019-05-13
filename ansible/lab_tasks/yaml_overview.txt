@@ -1,0 +1,122 @@
+https://en.wikipedia.org/wiki/YAML
+
+
+
+Ansible Playbooks written in YAML language
+
+YAML designed to represent data structures in easy-to-write, human-readable format
+	Examples: Lists, associative arrays
+Abandons enclosure syntax used to structure data hierarchy in other languages
+	Examples: Brackets, braces, open/close tags
+Uses outline indentation to maintain data hierarchy structures
+
+
+
+YAML File Syntax
+	Optional document markers:
+		Start of document: ---
+		End of document: ...
+	Data structures represented in outline format
+	Space characters used for indentation
+	Indentation rules:
+		Elements at same level in hierarchy must have same indentation
+		Child elements must be indented further than parents
+		No rules about exact number of spaces to use
+	Optional: Insert blank lines for readability
+
+
+
+Example: YAML File
+---
+title: 		My book
+author:
+    first_name:	John
+    last_name:	Doe
+
+publish_date: 	2016-01-01
+
+chapters:
+    - number:	1
+      title:	Chapter 1 Title
+      pages:	10
+
+    - number:	1
+      title:	Chapter 2 Title
+      pages:	10
+
+...
+
+
+
+
+Ansible Playbooks: YAML files written in list format
+	List items are key/value pairs
+Optional:
+	Initiate playbook with --- marker
+
+
+Strings
+	No requirement to enclose strings in quotation marks
+		Even if string contains spaces
+	Optional: Enclose string in single or double quotation marks
+	Examples:
+		this is a string
+		'this is another string'
+		"this is yet another a string"
+
+	
+
+Multiline String Methods
+	Use |
+		Preserves line returns within string:
+		include_newlines: |
+			Example Company
+			123 Main Street
+			Atlanta, GA 30303
+	Use >
+		Converts line returns to spaces
+		Removes leading white spaces in lines
+			Use to break long strings at space characters
+			Spanning multiple lines promotes better readability
+			fold_newlines: >
+				This is
+				a very long,
+				long, long, long
+				sentence.
+		  
+
+
+Dictionaries
+	Other names for key/value data pair: Dictionary, hash, associative array
+	To separate keys from values, use : followed by space:
+	keys: value
+	
+	Dictionaries commonly expressed in indented block format:
+	---
+		name: Automation using Ansible
+		code: MYCODE407
+	Optional: Express dictionaries in inline block format
+		Enclose multiple key/value pairs between curly brackets
+		Separate pairs with , followed by space:
+		---
+		{name: Automation using Ansible, code: MYCODE407}
+
+  
+ 
+Lists
+	Lists in YAML = arrays in other languages
+	To represent list, precede each item with - followed by space:
+	---
+		- red
+		- green
+		- blue
+	Optional: Express lists in inline format
+		Enclose list items between square brackets
+		To separate items, use , followed by space:
+		---
+		fruits:
+			[red, green, blue]
+
+  
+  
+  

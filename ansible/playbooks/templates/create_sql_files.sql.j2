@@ -1,0 +1,15 @@
+# {{ ansible_managed }}
+
+{% for my_user in item.users %}
+{%  if my_user.state == 'present' %}
+CREATE USER {{ my_user.name }} PASSWORD '{{ my_user.password }}';
+{%  else %}
+DROP USER {{ my_user.name }};
+{%  endif %}
+{% endfor %}
+
+# state
+# databases
+
+
+

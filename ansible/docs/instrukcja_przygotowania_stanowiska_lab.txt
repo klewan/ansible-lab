@@ -1,0 +1,100 @@
+
+wymagania sprzętowe:
+RAM - min 8GB
+HDD - min 20GB
+
+
+
+1. Zainstaluj Notepad++
+
+https://notepad-plus-plus.org/download/v7.6.6.html
+
+2. Zainstaluj Vagrant
+
+https://www.vagrantup.com/downloads.html
+
+3. Zrestartuj system Windows
+
+4. Zainstaluj VirtalBox
+
+https://www.virtualbox.org/wiki/Downloads
+
+5. Zainstaluj Git SCM to Windows
+
+https://gitforwindows.org/
+
+6. Utwórz katalog c:/lab
+
+cmd
+cd /
+mkdir lab
+cd lab
+
+7. Uruchom z konsoli
+
+cmd
+cd c:/lab
+vagrant plugin install vagrant-hostmanager
+
+8. Pobierz (sklonuj) repozytorium z https://github.com/klewan/ansible-lab.git i zapisz zawartość do c:/lab 
+- bez podkatalogu, powinien być np. plik c:/lab/Vagrantfile
+
+cmd
+cd c:/lab
+git clone https://github.com/klewan/ansible-lab.git .
+
+# uwaga: na końcu polecenia jest kropka (.)
+
+9. Uruchom środowisko (punkt trwa około 10-15 minut)
+
+cmd
+cd c:/lab
+vagrant up
+
+10. Sprawdź statuś środowiska
+
+cd c:/lab
+vagrant status
+
+# output powinien wyglądać następująco:
+
+# Current machine states:
+# 
+# control                   running (virtualbox)
+# lb01                      running (virtualbox)
+# app01                     running (virtualbox)
+# app02                     running (virtualbox)
+# db01                      running (virtualbox)
+
+11. Wykonaj pierwszy snapshot o nazwie 'initial'
+
+cd c:/lab
+vagrant halt
+vagrant snapshot save initial
+vagrant snapshot list
+
+12. uruchom wszystkie VMs
+
+vagrant up
+
+
+#
+# Inne polecenia
+# 
+
+# vagrant ssh control
+# vagrant ssh lb01
+# vagrant ssh app01
+# vagrant ssh app02
+# vagrant ssh db01
+
+# cd /vagrant/ansible
+
+
+# vagrant halt
+
+# vagrant snapshot list
+# vagrant snapshot save initial
+# vagrant snapshot restore initial
+
+

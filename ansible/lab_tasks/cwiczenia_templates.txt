@@ -1,0 +1,61 @@
+
+*)
+zmodyfikuj template motd.j2
+dodaj zmienną globalą my_var o wartości 'Hello!' i wyświetl ją w template'cie
+
+nadpisz wartość my_var dla grupy 'webserver' - 'Hello from webserver'
+podobnie dla grupy 'db'
+
+uruchom playbooka
+
+
+*)
+zmodyfikuj template create_sql_files.sql.j2 tak, by tworzył polecenie:
+CREATE DATABSE <dbname>;
+jeśli w zmiennej postgresql_clusters.databases.state jest 'present'
+lub
+DROP DATABASE <dbname>;
+gdy state jest 'absent'
+
+
+
+*)
+   utwórz playbooka h5.yml który korzysta z template'a templates/.bash_profile.j2 i tworzy plik ~/.bash_profile na wszystkich serwerach
+   zadeklaruj zmienną 'evn_name' w group_vars dla każdej z grup - powinna zawierać nazwę grupy
+   uruchom playbook i sprawdź prompta po zalogowaniu na hosty
+   
+*)
+  utwórz playbooka h6.yml, który działa na serwerch grupy webserver 
+
+  dodaj zmienną do group_vars/webservers/vars:
+
+my_diskgroups:
+  - diskgroup: DG1
+    disk:
+      - {device: '/dev/sde', asmlabel: 'ASM11'}
+      - {device: '/dev/sdf', asmlabel: 'ASM12'}
+  - diskgroup: DG2
+    disk:
+      - {device: '/dev/sdg', asmlabel: 'ASM23'}
+      - {device: '/dev/sdh', asmlabel: 'ASM24'}
+
+
+  dla hosta app01 zmodyfikuj tą zmienną w host_vars, np. inne asmlabel, etc.
+
+  
+  utwórz template'a 'templates/disk_mapping.j2', który  dla każdego elementu z 'disk' tworzy osobną linię w następującym formacie:
+
+      <hostname> : <diskgroup> : <asmlabel> <device>
+    
+  uwaga: dla <hostname> użyj zmiennej wbudowanej ansible'a, np.  'ansible_hostname'
+
+  
+  w swoim playbooku użyj modułu tempate, który tworzy plik /tmp/disk_mapping_<diskgroup>.txt dla każdej zdefiniowanej grupy i dla danego hosta
+  użyj loop_control i atrybutu 'label'
+  
+przykładowy output:
+app01 : DG1: ASM11 /dev/sde
+app01 : DG1: ASM22 /dev/sdf
+
+ 
+ 

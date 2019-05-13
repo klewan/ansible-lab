@@ -1,0 +1,18 @@
+
+
+*)
+Napisz playbooka, który
+
+- działa na wszystkich hostach
+- działa poprawnie z --check mode
+- ma wszystkie taski z tagami
+- pierwszy task odczytuje i zachowuje w zmiennej zawartość pliku /etc/redhat-release
+- drugi task wyświetla zawartość w/w zmiennej
+- trzeci task robi import osobnego pliku w którym jest task instalujący serwis ntpd  (tag install_ntpd)
+- czwarty task robi include osobnego pliku, w którym jest startowanie serwisu ntpd
+
+uruchom tego playbooka tylko na lb01
+uruchom tego playbooka tylko z tagiem install_ntpd na lb01
+uruchom tego playbooka na db01, w check mode, i tylko tak by była wyświetlona zawartość /etc/redhat-release
+
+

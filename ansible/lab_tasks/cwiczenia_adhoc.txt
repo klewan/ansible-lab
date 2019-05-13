@@ -1,0 +1,29 @@
+
+*)
+wyświetl zawartość /etc/motd na:
+- wszystkich hostach
+- grupie webserver
+- hoście lb01
+
+*)
+wprowadź nowy wpis w pliku /etc/motd za pomocą modułu copy, np.
+
+ansible all -m copy -a 'content="Hello\n" dest=/etc/motd'
+
+czemu nie działa?
+jak to naprawić?
+
+po poprawieniu zaloguj się na lb01
+
+*)
+ponownie wyświetl zawartość /etc/motd za pomocą ansible na wszystkich hostach
+
+*)
+utówrz plik /home/devops/test.txt
+
+echo "Hello world" > /home/devops/test.txt
+
+przekopiuj go za pomocą modułu copy do /tmp/ na hosty grupy webserver
+
+argumenty: src / dest
+
